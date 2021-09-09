@@ -192,7 +192,7 @@ Detailed information regarding environment variables can be found on the [ovrclk
 
 You can optionally restore a publicly hosted snapshot to speed up the node deployment. A sample `env:` is as follows:
 
-```toml
+```bash
 env:
    - MONIKER=my_juno_node
    - CHAIN_URL=https://raw.githubusercontent.com/nullMames/juno-on-akash/main/chain.json
@@ -409,7 +409,7 @@ akash query market bid list --owner=$AKASH_ACCOUNT_ADDRESS --node $AKASH_NODE --
 
 You will be given an output similar to the following:
 
-```toml
+```bash
 bids:
 - bid:
     bid_id:
@@ -616,7 +616,7 @@ akash query market lease list --owner $AKASH_ACCOUNT_ADDRESS --node $AKASH_NODE 
 
 Which should give you an output similar to:
 
-```toml
+```bash
 leases:
 - escrow_payment:
     account_id:
@@ -661,7 +661,7 @@ akash provider send-manifest deploy.yml --node $AKASH_NODE --dseq $AKASH_DSEQ --
 
 If your manifest deployment is successful, you should have an output similar to:
 
-```toml
+```bash
 provider: akash1f6gmtjpx4r8qda9nxjwq26fp5mcjyqmaq5m6j7
 	status: PASS
 ```
@@ -733,7 +733,7 @@ akash query deployment get --owner $AKASH_ACCOUNT_ADDRESS --node $AKASH_NODE --d
 
 You will be given an output similar to:
 
-```toml
+```bash
 deployment:
   created_at: "2035900"
   deployment_id:
@@ -1101,7 +1101,7 @@ akash query market lease list --owner $AKASH_ACCOUNT_ADDRESS --node $AKASH_NODE 
 
 Which will give you an output similar to:
 
-```toml
+```bash
 leases:
 - escrow_payment:
     account_id:
