@@ -23,7 +23,7 @@ description: The distribution module allows you to manage your staking rewards
 
 Query validator commission rewards from delegators to that validator.
 
-```text
+```sh
 junod query distribution commission [validator] [flags]
 ```
 
@@ -31,7 +31,7 @@ junod query distribution commission [validator] [flags]
 
 Query all coins in the community pool which is under Governance control.
 
-```text
+```sh
 junod query distribution community-pool [flags]
 ```
 
@@ -39,7 +39,7 @@ junod query distribution community-pool [flags]
 
 Query distribution params.
 
-```text
+```sh
  junod query distribution params [flags]
 ```
 
@@ -47,7 +47,7 @@ Query distribution params.
 
 Query all rewards earned by a delegator, optionally restrict to rewards from a single validator.
 
-```text
+```sh
 junod query distribution rewards [delegator-addr] [validator-addr] [flags]
 ```
 
@@ -55,7 +55,7 @@ junod query distribution rewards [delegator-addr] [validator-addr] [flags]
 
 Query all slashes of a validator for a given block range.
 
-```text
+```sh
 junod query distribution slashes [validator] [start-height] [end-height] [flags]
 ```
 
@@ -63,7 +63,7 @@ junod query distribution slashes [validator] [start-height] [end-height] [flags]
 
 Query distribution outstanding \(un-withdrawn\) rewards for a validator and all their delegations.
 
-```text
+```sh
 junod query distribution validator-outstanding-rewards [validator] [flags]
 ```
 
@@ -71,7 +71,7 @@ junod query distribution validator-outstanding-rewards [validator] [flags]
 
 Funds the community pool with the specified amount.
 
-```text
+```sh
 junod tx distribution fund-community-pool [amount] [flags]
 ```
 
@@ -79,7 +79,7 @@ junod tx distribution fund-community-pool [amount] [flags]
 
 Set the withdraw address for rewards associated with a delegator address.
 
-```text
+```sh
 junod tx distribution set-withdraw-addr [withdraw-addr] [flags]
 ```
 
@@ -87,7 +87,7 @@ junod tx distribution set-withdraw-addr [withdraw-addr] [flags]
 
 Withdraw all rewards for a single delegator.
 
-```text
+```sh
 junod tx distribution withdraw-all-rewards [flags]
 ```
 
@@ -95,7 +95,7 @@ junod tx distribution withdraw-all-rewards [flags]
 
 Withdraw rewards from a given delegation address, and optionally withdraw validator commission if the delegation address given is a validator operator.
 
-```text
+```sh
 junod tx distribution withdraw-rewards [validator-addr] [flags]
 ```
 
