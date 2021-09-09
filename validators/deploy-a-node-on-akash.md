@@ -192,7 +192,7 @@ Detailed information regarding environment variables can be found on the [ovrclk
 
 You can optionally restore a publicly hosted snapshot to speed up the node deployment. A sample `env:` is as follows:
 
-```javascript
+```toml
 env:
    - MONIKER=my_juno_node
    - CHAIN_URL=https://raw.githubusercontent.com/nullMames/juno-on-akash/main/chain.json
@@ -206,13 +206,13 @@ This configuration will restore a compressed tar archive `lucina_2021--7-28.tar.
 
 Before you can create a deployment, a [certificate](https://docs.akash.network/decentralized-cloud/mtls) must first be created. **Your certificate needs to be created only once per account** and can be used across all deployments.To do this, run:
 
-```text
+```bash
 akash tx cert create client --chain-id $AKASH_CHAIN_ID --keyring-backend $AKASH_KEYRING_BACKEND --from $AKASH_KEY_NAME --node $AKASH_NODE --fees 5000uakt
 ```
 
 You should see a response similar to:
 
-```javascript
+```json
 {
   "body": {
     "messages": [
@@ -245,11 +245,11 @@ You should see a response similar to:
 
 To deploy your node to Akash, run:
 
-```javascript
+```bash
 akash tx deployment create deploy.yml --from $AKASH_KEY_NAME --node $AKASH_NODE --chain-id $AKASH_CHAIN_ID --fees 5000uakt -yYou will see output similar to:
 ```
 
-```javascript
+```json
 {
     "height": "2035900",
     "txhash": "42D9B99D67B1B933161CC25C83F5F4C0D57CC32B9D85D767B0F964A7F5F4E129",
@@ -372,7 +372,7 @@ akash tx deployment create deploy.yml --from $AKASH_KEY_NAME --node $AKASH_NODE 
 
 From the previous command output, you must locate the `"key":"value"` pairs for the `dseq`, `gseq` and `oseq` keys, similar to the following:
 
-```javascript
+```json
 {
     "key": "dseq",
     "value": "2035898"
@@ -389,7 +389,7 @@ From the previous command output, you must locate the `"key":"value"` pairs for 
 
 Copy these values and set the `AKASH_DSEQ`, `AKASH_DSEQ` and `AKASH_DSEQ` shell variables:
 
-```javascript
+```bash
 AKASH_DSEQ=2035898 && \
 AKASH_DSEQ=1 && \
 AKASH_DSEQ=1
@@ -403,13 +403,13 @@ If you have accidentally set the `$AKASH_DSEQ` variable to the wrong value,  use
 
 You can now query the market for bids to run your deployment:
 
-```javascript
+```bash
 akash query market bid list --owner=$AKASH_ACCOUNT_ADDRESS --node $AKASH_NODE --dseq $AKASH_DSEQ
 ```
 
 You will be given an output similar to the following:
 
-```javascript
+```toml
 bids:
 - bid:
     bid_id:
@@ -468,7 +468,7 @@ pagination:
 
 After you have studied the bids, you may select a bid from the list. Copy the provider hash and set the `AKASH_PROVIDER` shell variable:
 
-```javascript
+```bash
 AKASH_PROVIDER=akash1f6gmtjpx4r8qda9nxjwq26fp5mcjyqmaq5m6j7
 ```
 
@@ -476,13 +476,13 @@ AKASH_PROVIDER=akash1f6gmtjpx4r8qda9nxjwq26fp5mcjyqmaq5m6j7
 
 Now that we have selected a provider we are able to create a lease with the provider:
 
-```javascript
+```bash
 akash tx market lease create --chain-id $AKASH_CHAIN_ID --node $AKASH_NODE --owner $AKASH_ACCOUNT_ADDRESS --dseq $AKASH_DSEQ --gseq $AKASH_GSEQ --oseq $AKASH_OSEQ --provider $AKASH_PROVIDER --from $AKASH_KEY_NAME --fees 5000uakt
 ```
 
 Your output will be similar to:
 
-```javascript
+```json
 {
     "height": "2035920",
     "txhash": "75AD9D2680711535438B1D341C54B5D9713B025024A4A05792AF3CFF40BFC120",
@@ -596,7 +596,7 @@ Your output will be similar to:
 {% hint style="info" %}
 If you get an error while trying to create the lease similar to:
 
-```javascript
+```json
 {"height":"1361880",
 "txhash":"554579ED6917847777B645DDEB8B338C4ABC077DFF69517C9F17D55516296832",
 "codespace":"market","code":12,"data":""
@@ -610,13 +610,13 @@ you have probably waited too long between creating the deployment and accepting 
 
 After creating a lease we can query the lease with:
 
-```javascript
+```bash
 akash query market lease list --owner $AKASH_ACCOUNT_ADDRESS --node $AKASH_NODE --dseq $AKASH_DSEQ
 ```
 
 Which should give you an output similar to:
 
-```javascript
+```toml
 leases:
 - escrow_payment:
     account_id:
@@ -655,13 +655,13 @@ pagination:
 
 Now that we have created a lease with the provider, we can deploy the manifest:
 
-```javascript
+```bash
 akash provider send-manifest deploy.yml --node $AKASH_NODE --dseq $AKASH_DSEQ --provider $AKASH_PROVIDER --home ~/.akash --from $AKASH_KEY_NAME
 ```
 
 If your manifest deployment is successful, you should have an output similar to:
 
-```javascript
+```toml
 provider: akash1f6gmtjpx4r8qda9nxjwq26fp5mcjyqmaq5m6j7
 	status: PASS
 ```
@@ -670,13 +670,13 @@ provider: akash1f6gmtjpx4r8qda9nxjwq26fp5mcjyqmaq5m6j7
 
 Now that your manifest is deployed, your instance should be up and running. You can now query you instance logs:
 
-```javascript
+```bash
 akash provider lease-logs --node $AKASH_NODE --from $AKASH_KEY_NAME  --provider $AKASH_PROVIDER --dseq $AKASH_DSEQ
 ```
 
 For this example instance, the initial logs output:
 
-```javascript
+```bash
  {"app_message":{"auth":{"accounts":[],"params":{"max_memo_characters":"256","sig_verify_cost_ed25519":"590","sig_verify_cost_secp256k1":"1000","tx_sig_limit":"7","tx_size_cost_per_byte":"10"}},"bank":{"balances":[],"denom_metadata":[],"params":{"default_send_enabled":true,"send_enabled":[]},"supply":[]},"capability":{"index":"1","owners":[]},"crisis":{"constant_fee":{"amount":"1000","denom":"stake"}},"distribution":{"delegator_starting_infos":[],"delegator_withdraw_infos":[],"fee_pool":{"community_pool":[]},"outstanding_rewards":[],"params":{"base_proposer_reward":"0.010000000000000000","bonus_proposer_reward":"0.040000000000000000","community_tax":"0.020000000000000000","withdraw_addr_enabled":true},"previous_proposer":"","validator_accumulated_commissions":[],"validator_current_rewards":[],"validator_historical_rewards":[],"validator_slash_events":[]},"evidence":{"evidence":[]},"genutil":{"gen_txs":[]},"gov":{"deposit_params":{"max_deposit_period":"172800s","min_deposit":[{"amount":"10000000","denom":"stake"}]},"deposits":[],"proposals":[],"starting_proposal_id":"1","tally_params":{"quorum":"0.334000000000000000","threshold":"0.500000000000000000","veto_threshold":"0.334000000000000000"},"votes":[],"voting_params":{"voting_period":"172800s"}},"ibc":{"channel_genesis":{"ack_sequences":[],"acknowledgements":[],"channels":[],"commitments":[],"next_channel_sequence":"0","receipts":[],"recv_sequences":[],"send_sequences":[]},"client_genesis":{"clients":[],"clients_consensus":[],"clients_metadata":[],"create_localhost":false,"next_client_sequence":"0","params":{"allowed_clients":["06-solomachine","07-tendermint"]}},"connection_genesis":{"client_connection_paths":[],"connections":[],"next_connection_sequence":"0"}},"juno":{},"mint":{"minter":{"annual_provisions":"0.000000000000000000","inflation":"0.130000000000000000"},"params":{"blocks_per_year":"6311520","goal_bonded":"0.670000000000000000","inflation_max":"0.200000000000000000","inflation_min":"0.070000000000000000","inflation_rate_change":"0.130000000000000000","mint_denom":"stake"}},"params":null,"slashing":{"missed_blocks":[],"params":{"downtime_jail_duration":"600s","min_signed_per_window":"0.500000000000000000","signed_blocks_window":"100","slash_fraction_double_sign":"0.050000000000000000","slash_fraction_downtime":"0.010000000000000000"},"signing_infos":[]},"staking":{"delegations":[],"exported":false,"last_total_power":"0","last_validator_powers":[],"params":{"bond_denom":"stake","historical_entries":10000,"max_entries":7,"max_validators":100,"unbonding_time":"1814400s"},"redelegations":[],"unbonding_delegations":[],"validators":[]},"transfer":{"denom_traces":[],"params":{"receive_enabled":true,"send_enabled":true},"port_id":"transfer"},"upgrade":{},"vesting":{},"wasm":{"codes":[],"contracts":[],"gen_msgs":[],"params":{"code_upload_access":{"address":"","permission":"Everybody"},"instantiate_default_permission":"Everybody","max_wasm_code_size":"614400"},"sequences":[]}},"chain_id":"lucina","gentxs_dir":"","moniker":"node_69","node_id":"0cb026681d97f567b309e1e14f7f3582ff1ed990"}
  Downloading genesis
  File at /root/.juno/config/genesis.json is a valid genesis file
@@ -697,7 +697,7 @@ For this example instance, the initial logs output:
 
 We can see the node has downloaded the genesis file and is starting the node. A short time later we can see the node is syncing to the network:
 
-```javascript
+```bash
  6:14AM INF committed state app_hash=44431E573B7675BE3CADC76FFF9CBCC030D65104422BC120B9D034D9DC943DF6 height=988 module=state num_txs=0
  6:14AM INF indexed block height=988 module=txindex
  6:14AM INF minted coins from module account amount=1520783ujuno from=mint module=x/bank
@@ -713,13 +713,13 @@ We can see the node has downloaded the genesis file and is starting the node. A 
 
 If you find that you have made a mistake in your deploy.yml and your instance has not started up as expected, you are able to make changes to the deploy.yml update your deployment lease:
 
-```javascript
+```bash
 akash tx deployment update deploy.yml --dseq $AKASH_DSEQ --from $AKASH_KEY_NAME --chain-id $AKASH_CHAIN_ID --node $AKASH_NODE --fees=5000uakt
 ```
 
 And re-deploy the manifest:
 
-```javascript
+```bash
 akash provider send-manifest deploy.yml --keyring-backend $AKASH_KEYRING_BACKEND --node $AKASH_NODE --from $AKASH_KEY_NAME --provider $AKASH_PROVIDER --dseq $AKASH_DSEQ --log_level info --home ~/.akash
 ```
 
@@ -727,13 +727,13 @@ akash provider send-manifest deploy.yml --keyring-backend $AKASH_KEYRING_BACKEND
 
 You are able to query the status of the lease at any time:
 
-```javascript
+```bash
 akash query deployment get --owner $AKASH_ACCOUNT_ADDRESS --node $AKASH_NODE --dseq $AKASH_DSEQ
 ```
 
 You will be given an output similar to:
 
-```javascript
+```toml
 deployment:
   created_at: "2035900"
   deployment_id:
@@ -797,13 +797,13 @@ groups:
 
 You can query the deployment to show the URL assigned:
 
-```javascript
+```bash
 akash provider lease-status --node $AKASH_NODE --home ~/.akash --dseq $AKASH_DSEQ --from $AKASH_KEY_NAME --provider $AKASH_PROVIDER
 ```
 
 This will produce an output similar to:
 
-```javascript
+```json
 {
   "services": {
     "node": {
@@ -839,13 +839,13 @@ This will produce an output similar to:
 
 You can close your lease at any time by executing:
 
-```javascript
+```bash
 akash tx deployment close --node $AKASH_NODE --chain-id $AKASH_CHAIN_ID --dseq $AKASH_DSEQ  --owner $AKASH_ACCOUNT_ADDRESS --from $AKASH_KEY_NAME --keyring-backend $AKASH_KEYRING_BACKEND -y --fees 5000uakt
 ```
 
 You will be given an output similar to:
 
-```javascript
+```json
 {
     "height": "2036292",
     "txhash": "B5EBD4F1B6B9B5F37EDD569DA73DD82877ACEC2897C4DBBA9C4B8109911C4A77",
@@ -1086,7 +1086,7 @@ You will be given an output similar to:
 
 From examining these logs, we can see that this deployment had a total cost of 6324 uAKT:
 
-```javascript
+```json
 {
     "key": "amount",
     "value": "6324uakt"
@@ -1095,13 +1095,13 @@ From examining these logs, we can see that this deployment had a total cost of 6
 
 You can now query the lease to ensure it has been closed:
 
-```javascript
+```bash
 akash query market lease list --owner $AKASH_ACCOUNT_ADDRESS --node $AKASH_NODE --dseq $AKASH_DSEQ
 ```
 
 Which will give you an output similar to:
 
-```javascript
+```toml
 leases:
 - escrow_payment:
     account_id:
