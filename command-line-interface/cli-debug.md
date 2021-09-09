@@ -16,7 +16,7 @@ description: The debug module is a tool for simple debugging.
 
 Convert juno address between `hex` and `bech32` format.
 
-```text
+```sh
 junod debug addr [address] [flags]
 ```
 
@@ -34,7 +34,7 @@ Your `bech32` encoded juno local addresses can be queried with `junod keys list`
 
 Example usage:
 
-```text
+```sh
 # query bech32 encoded address
 junod debug addr juno1ludczrvlw36fkur9vy49lx4vjqhppn30h42ufg
 
@@ -44,7 +44,7 @@ junod debug addr FF1B810D9F74749B7065612A5F9AAC902E10CE2F
 
 Returns:
 
-```text
+```sh
 Address: [255 27 129 13 159 116 116 155 112 101 97 42 95 154 172 144 46 16 206 47]
 Address (hex): FF1B810D9F74749B7065612A5F9AAC902E10CE2F
 Bech32 Acc: juno1ludczrvlw36fkur9vy49lx4vjqhppn30h42ufg
@@ -55,7 +55,7 @@ Bech32 Val: junovaloper1ludczrvlw36fkur9vy49lx4vjqhppn30ggunj3
 
 Decode a ED25519 pubkey from `hex`, `base64`, or `bech32`.
 
-```text
+```sh
 junod debug pubkey [pubkey] [flags]
 ```
 
@@ -73,7 +73,7 @@ Your `bech32` encoded validator pubkey can be queried with `junod tendermint sho
 
 Example usage:
 
-```text
+```sh
 # query hex address
 junod debug pubkey F2AF5F796A1626C8BB51535E361F2E4B66A61B9AAD177B83452E0FCD5A14690DE
 
@@ -86,7 +86,7 @@ junod debug pubkey junopub1zcjduepq72h477t2zcnv3w632d0rv8ewfdn2vxu645thhq699c8u6
 
 Returns:
 
-```text
+```sh
 Address: A50DF747BBF892E0FB0BCBAE6C3E2A5AE4A17D5A
 Hex: F2AF5F796A1626C8BB51535E361F2E4B66A61B9AAD177B83452E0FCD5A14690D
 JSON (base64): {"type":"tendermint/PubKeyEd25519","value":"8q9feWoWJsi7UVNeNh8uS2amG5qtF3uDRS4PzVoUaQ0="}
@@ -99,19 +99,19 @@ Bech32 Validator Consensus: junovalconspub1zcjduepq72h477t2zcnv3w632d0rv8ewfdn2v
 
 Convert raw bytes output \(eg. \[10 21 13 127\]\) to `hex`.
 
-```text
+```sh
 iris debug raw-bytes <raw-bytes>
 ```
 
 Example command:
 
-```text
+```sh
 junod debug raw-bytes "10 21 13 127"
 ```
 
 Returns:
 
-```text
+```sh
 0A150D7F
 ```
 
