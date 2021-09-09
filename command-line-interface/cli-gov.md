@@ -28,7 +28,7 @@ description: >-
 
 Query details of a single governance proposal:
 
-```text
+```sh
 junod query gov proposal [proposal-id] [flags]
 ```
 
@@ -45,13 +45,13 @@ junod query gov proposal [proposal-id] [flags]
 
 Query all proposals:
 
-```text
+```sh
 junod query gov proposals
 ```
 
 Query proposals with conditions filters:
 
-```text
+```sh
 junod query gov proposals --limit=3 --status=Passed --depositor=<juno...>
 ```
 
@@ -59,7 +59,7 @@ junod query gov proposals --limit=3 --status=Passed --depositor=<juno...>
 
 Query details of a single vote.
 
-```text
+```sh
 junod query gov vote [proposal-id] [voter-addr] [flags]
 ```
 
@@ -67,7 +67,7 @@ junod query gov vote [proposal-id] [voter-addr] [flags]
 
 Query votes on a proposal.
 
-```text
+```sh
 junod query gov votes [proposal-id] [flags]
 ```
 
@@ -75,7 +75,7 @@ junod query gov votes [proposal-id] [flags]
 
 Query details for a single proposal deposit on a proposal by its identifier.
 
-```text
+```sh
 junod query gov deposit [proposal-id] [depositer-addr] [flags]
 ```
 
@@ -83,7 +83,7 @@ junod query gov deposit [proposal-id] [depositer-addr] [flags]
 
 Query details for all deposits on a proposal.
 
-```text
+```sh
 junod query gov deposits [proposal-id] [flags]
 ```
 
@@ -91,7 +91,7 @@ junod query gov deposits [proposal-id] [flags]
 
 Query tally of votes on a proposal. 
 
-```text
+```sh
 junod query gov tally [proposal-id] [flags]
 ```
 
@@ -99,13 +99,13 @@ junod query gov tally [proposal-id] [flags]
 
 Query the parameters \(voting \| tallying \| deposit\) of the governance process.
 
-```text
+```sh
 junod query gov param [param-type] [flags]
 ```
 
 Example:
 
-```text
+```sh
 # query voting parameters
 junod query gov param voting
 
@@ -120,7 +120,7 @@ junod query gov param deposit
 
 Query the all the parameters for the governance process.
 
-```text
+```sh
 junod query gov params [flags]
 ```
 
@@ -128,7 +128,7 @@ junod query gov params [flags]
 
 Query which address proposed a proposal with a given ID.
 
-```text
+```sh
 junod query gov proposer [proposal-id] [flags]
 ```
 
@@ -147,13 +147,13 @@ Submit a proposal along with an initial deposit. Proposal title, description, ty
 
 Submit a community pool spend proposal along with an initial deposit. The proposal details must be supplied via a JSON file.
 
-```text
+```sh
 junod tx gov submit-proposal community-pool-spend <path/to/proposal.json> --from=<key_or_address>
 ```
 
 Where proposal.json contains, for example:
 
-```text
+```sh
 {
     "title": "Community Pool Spend",
     "description": "Send me tokens, to benefit the Juno community",
@@ -175,13 +175,13 @@ Currently parameter changes are evaluated but not validated, so it is very impor
 
 Proper vetting of a parameter change proposal should prevent this from happening \(no deposits should occur during the governance process\), but it should be noted regardless.
 
-```text
+```sh
 junod tx gov submit-proposal param-change <path/to/proposal.json> --from=<key_or_address>
 ```
 
 Where proposal.json contains, for example:
 
-```text
+```sh
 {
     "title": "Staking Param Change",
     "description": "Update max validators",
@@ -200,7 +200,7 @@ Where proposal.json contains, for example:
 
 Submit a software upgrade along with an initial deposit. Please specify a unique name and height OR time for the upgrade to take effect.
 
-```text
+```sh
 junod tx gov submit-proposal software-upgrade [name] (--upgrade-height [height] | --upgrade-time [time]) (--upgrade-info [info]) [flags]
 ```
 
@@ -222,7 +222,7 @@ To enable nodes managed by [forbole/cosmovisor](https://github.com/forbole/cosmo
 
 Store an os/architecture -&gt; binary URI map in the upgrade plan `info` field as JSON under the `"binaries"` key, eg:
 
-```text
+```sh
 {
   "binaries": {
     "linux/amd64":"https://example.com/juno.zip?checksum=sha256:aec070645fe53ee3b3763059376134f058cc337247c978add178b6ccdfb0019f"
@@ -235,7 +235,7 @@ Store an os/architecture -&gt; binary URI map in the upgrade plan `info` field a
 
 Cancel a software upgrade along with an initial deposit.
 
-```text
+```sh
 junod tx gov submit-proposal cancel-software-upgrade [flags]
 ```
 
@@ -251,7 +251,7 @@ junod tx gov submit-proposal cancel-software-upgrade [flags]
 
 Submit a deposit for an active proposal. You can find the `proposal-id` by running `junod query gov proposals`.
 
-```text
+```sh
 junod tx gov deposit [proposal-id] [deposit] [flags]
 ```
 
@@ -259,13 +259,13 @@ junod tx gov deposit [proposal-id] [deposit] [flags]
 
 Submit a vote for an active proposal. You can find the `proposal-id` by running `junod query gov proposals`. Vote for an active proposal, options: \(yes \| no \| no\_with\_veto \| abstain\).
 
-```text
+```sh
 junod tx gov vote [proposal-id] [option] [flags]
 ```
 
 Example vote, voting `yes` on proposal number `1`:
 
-```text
+```sh
 junod tx gov vote 1 yes --from=<key_or_address> --fees=1juno
 ```
 
