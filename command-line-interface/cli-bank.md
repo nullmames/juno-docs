@@ -18,7 +18,7 @@ description: >-
 
 Query the total balance of an account or of a specific denomination.
 
-```text
+```sh
 junod query bank balances [address] [flags]
 ```
 
@@ -34,7 +34,7 @@ junod query bank balances [address] [flags]
 
 Query total supply of coins that are held by accounts in the chain.
 
-```text
+```sh
 junod query bank total [flags]
 ```
 
@@ -49,7 +49,7 @@ junod query bank total [flags]
 
 Sending tokens to another address, this command includes `generate`, `sign` and `broadcast` steps.
 
-```text
+```sh
 iris tx bank send [from_key_or_address] [to_address] [amount] [flags]
 ```
 
